@@ -1,0 +1,11 @@
+base: configs/base.yaml
+
+model:
+  name: resnet18
+  mode: scratch
+
+train:
+  epochs: 40
+  lr: 1.0e-3
+  early_stopping_patience: 10
+  warmup_epochs: 2
