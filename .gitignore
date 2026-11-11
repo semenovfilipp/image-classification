@@ -1,0 +1,24 @@
+# данные и артефакты обучения не коммитим
+data/
+outputs/
+models/
+*.pt
+*.pth
+*.ckpt
+*.npy
+wandb/
+runs/
+tb/
+
+# python / окружение
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# jupyter / ide
+.ipynb_checkpoints/
+.idea/
+.vscode/
+.DS_Store
