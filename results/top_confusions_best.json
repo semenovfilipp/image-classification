@@ -1,0 +1,52 @@
+[
+  {
+    "true": "American Pit Bull Terrier",
+    "pred": "Staffordshire Bull Terrier",
+    "count": 17
+  },
+  {
+    "true": "Ragdoll",
+    "pred": "Birman",
+    "count": 14
+  },
+  {
+    "true": "Egyptian Mau",
+    "pred": "Bengal",
+    "count": 13
+  },
+  {
+    "true": "Staffordshire Bull Terrier",
+    "pred": "American Pit Bull Terrier",
+    "count": 12
+  },
+  {
+    "true": "Siamese",
+    "pred": "Birman",
+    "count": 9
+  },
+  {
+    "true": "American Pit Bull Terrier",
+    "pred": "American Bulldog",
+    "count": 9
+  },
+  {
+    "true": "Maine Coon",
+    "pred": "Ragdoll",
+    "count": 8
+  },
+  {
+    "true": "British Shorthair",
+    "pred": "Russian Blue",
+    "count": 8
+  },
+  {
+    "true": "Birman",
+    "pred": "Siamese",
+    "count": 7
+  },
+  {
+    "true": "Russian Blue",
+    "pred": "British Shorthair",
+    "count": 6
+  }
+]

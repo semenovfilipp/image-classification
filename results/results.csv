@@ -1,0 +1,13 @@
+experiment,model,mode,params_M,trainable_M,epochs_run,best_epoch,best_val_acc,test_acc,test_f1,sec_per_epoch,train_time_min,gpu,finished_at
+alexnet_scratch,alexnet,scratch,57.16,57.16,40,36,0.4094,0.3772,0.3729,23.0,15.1,Tesla T4,2026-11-12 00:10
+alexnet_feature_extract,alexnet,feature_extract,57.16,0.15,6,2,0.817,0.7539,0.7526,21.0,2.1,Tesla T4,2026-11-11 23:04
+alexnet_finetune,alexnet,finetune,57.16,57.16,12,9,0.8514,0.7811,0.7789,24.0,4.7,Tesla T4,2026-11-11 23:12
+efficientnet_b0_scratch,efficientnet_b0,scratch,4.05,4.05,40,37,0.6033,0.5339,0.5266,23.5,15.8,Tesla T4,2026-11-11 23:46
+efficientnet_b0_feature_extract,efficientnet_b0,feature_extract,4.05,0.05,10,9,0.9493,0.9332,0.9323,19.8,3.5,Tesla T4,2026-11-11 22:56
+efficientnet_b0_finetune,efficientnet_b0,finetune,4.05,4.05,12,7,0.9475,0.9144,0.9129,24.0,5.1,Tesla T4,2026-11-11 23:01
+resnet18_scratch,resnet18,scratch,11.2,11.2,40,40,0.6866,0.5726,0.5687,24.7,16.5,Tesla T4,2026-11-11 23:29
+resnet18_feature_extract,resnet18,feature_extract,11.2,0.02,10,8,0.9076,0.8948,0.894,19.3,3.3,Tesla T4,2026-11-11 22:46
+resnet18_finetune,resnet18,finetune,11.2,11.2,12,10,0.9221,0.9019,0.9,24.3,4.8,Tesla T4,2026-11-11 22:52
+vgg16_bn_scratch,vgg16_bn,scratch,134.42,134.42,40,38,0.3877,0.3453,0.3297,42.2,28.3,Tesla T4,2026-11-12 01:22
+vgg16_bn_feature_extract,vgg16_bn,feature_extract,134.42,0.15,10,6,0.9221,0.9103,0.9105,26.5,4.5,Tesla T4,2026-11-12 00:17
+vgg16_bn_finetune,vgg16_bn,finetune,134.42,134.42,12,10,0.9493,0.9223,0.9213,42.4,8.6,Tesla T4,2026-11-12 00:31
