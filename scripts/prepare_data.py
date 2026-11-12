@@ -11,6 +11,7 @@ from pathlib import Path
 
 import click
 import pandas as pd
+from PIL import Image
 from sklearn.model_selection import train_test_split
 from torchvision.datasets import OxfordIIITPet
 from tqdm import tqdm
@@ -19,9 +20,9 @@ from tqdm import tqdm
 def resize_short_side(img, short_side: int):
     w, h = img.size
     scale = short_side / min(w, h)
-    if scale >= 1:  # не увеличиваем маленькие картинки
+    if scale >= 1:
         return img
-    return img.resize((round(w * scale), round(h * scale)), resample=3)  # BICUBIC
+    return img.resize((round(w * scale), round(h * scale)), resample=Image.BICUBIC)
 
 
 @click.command()
@@ -47,7 +48,7 @@ def main(raw_dir, out_dir, short_side, val_size, seed):
             name = src.stem + ".jpg"
             dst = img_dir / name
             if not dst.exists():
-                img, _ = ds[i]  # PIL RGB
+                img, _ = ds[i]
                 resize_short_side(img, short_side).save(dst, quality=95)
             rows.append({"filename": name, "label": label, "class_name": classes[label]})
         frames[split] = pd.DataFrame(rows)

@@ -12,19 +12,19 @@ import click
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-import torch  # noqa: E402
-from sklearn.metrics import classification_report  # noqa: E402
-from tqdm import tqdm  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import torch
+from sklearn.metrics import classification_report
+from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.data.dataset import build_dataloaders, load_classes  # noqa: E402
-from src.models.factory import build_model  # noqa: E402
-from src.utils.config import load_config  # noqa: E402
+from src.data.dataset import build_dataloaders, load_classes
+from src.models.factory import build_model
+from src.utils.config import load_config
 
 
 @click.command()
@@ -69,7 +69,6 @@ def main(config_path, checkpoint, output_root, data_root, split, device):
     eval_dir.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(report).T.to_csv(eval_dir / "classification_report.csv")
 
-    # матрица ошибок
     n = len(classes)
     cm = np.zeros((n, n), dtype=int)
     np.add.at(cm, (targets, preds), 1)
@@ -84,7 +83,6 @@ def main(config_path, checkpoint, output_root, data_root, split, device):
     fig.tight_layout()
     fig.savefig(eval_dir / "confusion_matrix.png", dpi=120)
 
-    # топ путаниц
     off = cm.copy()
     np.fill_diagonal(off, 0)
     top = np.dstack(np.unravel_index(np.argsort(off.ravel())[::-1][:10], off.shape))[0]

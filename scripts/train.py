@@ -24,12 +24,12 @@ from torch import nn
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.data.dataset import build_dataloaders  # noqa: E402
-from src.models.factory import build_model, count_params, param_groups  # noqa: E402
-from src.training.trainer import Trainer, warmup_cosine_schedule  # noqa: E402
-from src.utils.config import load_config, save_config  # noqa: E402
-from src.utils.loggers import build_loggers  # noqa: E402
-from src.utils.seed import set_seed  # noqa: E402
+from src.data.dataset import build_dataloaders
+from src.models.factory import build_model, count_params, param_groups
+from src.training.trainer import Trainer, warmup_cosine_schedule
+from src.utils.config import load_config, save_config
+from src.utils.loggers import build_loggers
+from src.utils.seed import set_seed
 
 
 def resolve_device(name: str) -> torch.device:
@@ -81,12 +81,10 @@ def main(config_path, output_root, data_root, overrides, device, force, limit_ba
     if device.type != "cuda":
         print("ВНИМАНИЕ: GPU не найден, обучение на CPU будет очень медленным")
 
-    # ---------------- данные
     loaders = build_dataloaders(cfg)
     print(f"train {len(loaders['train'].dataset)} | val {len(loaders['val'].dataset)} | "
           f"test {len(loaders['test'].dataset)}")
 
-    # ---------------- модель и оптимизатор
     m_cfg, t_cfg = cfg["model"], cfg["train"]
     model, head = build_model(m_cfg["name"], cfg["data"]["num_classes"], m_cfg["mode"])
     total, trainable = count_params(model)
@@ -117,10 +115,8 @@ def main(config_path, output_root, data_root, overrides, device, force, limit_ba
     )
     trainer.try_resume()
 
-    # ---------------- обучение
     trainer.fit(loaders["train"], loaders["val"], t_cfg["epochs"], t_cfg["early_stopping_patience"])
 
-    # ---------------- тест на лучшем чекпоинте
     trainer.load_best()
     test_m, cm = trainer.evaluate(loaders["test"], desc="test")
     print(f"[{name}] TEST acc {test_m['acc']:.4f} | macro-F1 {test_m['f1']:.4f}")

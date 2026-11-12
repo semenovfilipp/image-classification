@@ -16,8 +16,8 @@ import click
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import pandas as pd  # noqa: E402
+import matplotlib.pyplot as plt
+import pandas as pd
 
 MODE_ORDER = ["scratch", "feature_extract", "finetune"]
 MODE_COLORS = {"scratch": "#d62728", "feature_extract": "#1f77b4", "finetune": "#2ca02c"}
@@ -46,7 +46,6 @@ def main(output_root, results_dir):
     df = df.sort_values(["model", "mode"])
     df.to_csv(results_dir / "results.csv", index=False)
 
-    # --- markdown
     pivot = df.pivot_table(index="model", columns="mode", values="test_acc", observed=False)
     pivot = pivot.reindex(columns=[m for m in MODE_ORDER if m in pivot.columns])
     cols = ["model", "mode", "params_M", "trainable_M", "epochs_run", "best_epoch",
@@ -59,7 +58,6 @@ def main(output_root, results_dir):
         f.write(f"\n\nGPU: {', '.join(sorted(df['gpu'].unique()))}\n")
     print((results_dir / "results.md").read_text(encoding="utf-8"))
 
-    # --- кривые обучения
     models = sorted(df["model"].unique())
     fig, axes = plt.subplots(1, len(models), figsize=(4.5 * len(models), 3.8), sharey=True, squeeze=False)
     for ax, model in zip(axes[0], models):
@@ -77,7 +75,6 @@ def main(output_root, results_dir):
     fig.tight_layout()
     fig.savefig(results_dir / "curves.png", dpi=120)
 
-    # --- столбики test accuracy
     fig, ax = plt.subplots(figsize=(8, 4))
     pivot.plot.bar(ax=ax, color=[MODE_COLORS[m] for m in pivot.columns], rot=0)
     ax.set_ylabel("test accuracy")

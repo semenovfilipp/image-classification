@@ -8,13 +8,12 @@ data:
   num_classes: 37
   img_size: 224
   batch_size: 64
-  num_workers: 2                     # в Colab 2 CPU
-  # аугментации (одинаковые для всех экспериментов, чтобы сравнение было честным)
-  rrc_scale: [0.5, 1.0]              # RandomResizedCrop scale
+  num_workers: 2
+  rrc_scale: [0.5, 1.0]              # RandomResizedCrop
   color_jitter: 0.2
 
 model:
-  name: resnet18                     # любое имя из torchvision.models (см. src/models/factory.py)
+  name: resnet18                     # см. HEAD_LOCATIONS в src/models/factory.py
   mode: finetune                     # scratch | feature_extract | finetune
 
 train:
@@ -25,11 +24,11 @@ train:
   label_smoothing: 0.1
   warmup_epochs: 1
   grad_clip: 1.0
-  amp: true                          # mixed precision на GPU
+  amp: true
   early_stopping_patience: 5         # по val accuracy
 
 output:
-  root: outputs                      # в Colab переопределяем на Google Drive
+  root: outputs
 
 logging:
   tensorboard: true

@@ -56,14 +56,13 @@ class Trainer:
         self.grad_clip = grad_clip
         self.frozen_backbone = frozen_backbone
         self.loggers = loggers or []
-        self.limit_batches = limit_batches  # для быстрой отладки
+        self.limit_batches = limit_batches
 
         self.start_epoch = 0
         self.best_acc = -1.0
         self.epochs_no_improve = 0
         self.history: list[dict] = []
 
-    # ------------------------------------------------------------------ режимы
     def _set_train_mode(self) -> None:
         if self.frozen_backbone:
             # замороженный backbone держим в eval, чтобы BatchNorm не менял статистики
@@ -72,7 +71,6 @@ class Trainer:
         else:
             self.model.train()
 
-    # ------------------------------------------------------------------ эпохи
     def train_one_epoch(self, loader: DataLoader, epoch: int) -> dict[str, float]:
         self._set_train_mode()
         cm = ConfusionMatrix(self.num_classes)
@@ -122,7 +120,6 @@ class Trainer:
             cm.update(logits.argmax(1), y)
         return {"loss": total_loss / max(1, n), **cm.compute()}, cm
 
-    # ------------------------------------------------------------------ fit
     def fit(self, train_loader: DataLoader, val_loader: DataLoader, epochs: int, patience: int) -> None:
         for epoch in range(self.start_epoch, epochs):
             t0 = time.time()
@@ -163,7 +160,6 @@ class Trainer:
                 print(f"Early stopping: val acc не растёт {patience} эпох")
                 break
 
-    # ------------------------------------------------------------------ чекпоинты
     def save_last(self, epoch: int) -> None:
         torch.save(
             {
