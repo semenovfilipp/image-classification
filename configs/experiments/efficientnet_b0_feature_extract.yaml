@@ -1,0 +1,11 @@
+base: configs/base.yaml
+
+model:
+  name: efficientnet_b0
+  mode: feature_extract
+
+train:
+  epochs: 10
+  lr: 1.0e-3
+  early_stopping_patience: 4
+  warmup_epochs: 1

@@ -1,0 +1,36 @@
+# Базовый конфиг. Конфиги экспериментов в configs/experiments/ наследуют его
+# через ключ `base:` и переопределяют только то, что отличается.
+
+seed: 42
+
+data:
+  root: data/processed/oxford_pets   # результат scripts/prepare_data.py
+  num_classes: 37
+  img_size: 224
+  batch_size: 64
+  num_workers: 2
+  rrc_scale: [0.5, 1.0]              # RandomResizedCrop
+  color_jitter: 0.2
+
+model:
+  name: resnet18                     # см. HEAD_LOCATIONS в src/models/factory.py
+  mode: finetune                     # scratch | feature_extract | finetune
+
+train:
+  epochs: 12
+  lr: 1.0e-3                         # LR головы (и всей сети для scratch)
+  backbone_lr_mult: 0.1              # для finetune: LR backbone = lr * mult
+  weight_decay: 0.05
+  label_smoothing: 0.1
+  warmup_epochs: 1
+  grad_clip: 1.0
+  amp: true
+  early_stopping_patience: 5         # по val accuracy
+
+output:
+  root: outputs
+
+logging:
+  tensorboard: true
+  wandb: false
+  wandb_project: oxford-pets-classification

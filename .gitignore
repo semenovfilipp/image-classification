@@ -1,7 +1,7 @@
 # данные и артефакты обучения не коммитим
-data/
-outputs/
-models/
+/data/
+/outputs/
+/models/
 *.pt
 *.pth
 *.ckpt
